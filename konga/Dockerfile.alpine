@@ -17,7 +17,7 @@ npm install
 USER root
 
 COPY run /usr/bin/run
-chmod +x  /usr/bin/run
+
 RUN mkdir -p /opt/konga/custom_config && chown -R 1001 /usr/bin/run /home/konga /opt && \
 chgrp -R 0 /usr/bin/run /home/konga /opt && \
 chmod -R g=u /usr/bin/run /home/konga /opt
