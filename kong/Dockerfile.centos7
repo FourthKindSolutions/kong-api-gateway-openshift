@@ -7,8 +7,8 @@ yum clean all && rm -rf /var/cache/yum
 COPY run /usr/bin/run
 
 RUN mkdir -p /etc/kong-init && adduser -u 1001 kong && usermod -aG 0 kong && \
-chown -R 0 /usr/local/kong /usr/bin/run /home/kong /etc/kong /usr/local/lib/luarocks /usr/local/share/lua /etc/kong-init && \
-chgrp -R 0 /usr/local/kong /home/kong /usr/bin/run /etc/kong /usr/local/lib/luarocks /usr/local/share/lua /etc/kong-init && \
+chown -R 1001 /usr/local/kong /usr/bin/run /home/kong /etc/kong /usr/local/lib/luarocks /usr/local/share/lua /etc/kong-init && \
+chgrp -R 1001 /usr/local/kong /home/kong /usr/bin/run /etc/kong /usr/local/lib/luarocks /usr/local/share/lua /etc/kong-init && \
 chmod -R g=u /usr/local/kong /home/kong /etc/kong /usr/bin/run /usr/local/lib/luarocks /usr/local/share/lua /etc/kong-init
 
 USER root
