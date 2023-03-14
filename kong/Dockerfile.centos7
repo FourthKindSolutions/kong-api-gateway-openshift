@@ -5,7 +5,7 @@ yum install https://download.konghq.com/gateway-1.x-centos-7/Packages/k/kong-1.4
 yum clean all && rm -rf /var/cache/yum
 
 COPY run /usr/bin/run
-
+chmod +x  /usr/bin/run
 RUN mkdir -p /etc/kong-init && adduser -u 1001 kong && usermod -aG 0 kong && \
 chown -R 1001 /usr/local/kong /usr/bin/run /home/kong /etc/kong /usr/local/lib/luarocks /usr/local/share/lua /etc/kong-init && \
 chgrp -R 0 /usr/local/kong /home/kong /usr/bin/run /etc/kong /usr/local/lib/luarocks /usr/local/share/lua /etc/kong-init && \
