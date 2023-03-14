@@ -1,6 +1,6 @@
 FROM centos:7
 
-RUN yum install epel-release wget curl nc hostname -y && \
+RUN yum install  wget curl nc hostname -y && \
 yum install https://download.konghq.com/gateway-1.x-centos-7/Packages/k/kong-1.4.0.el7.amd64.rpm -y && \
 yum clean all && rm -rf /var/cache/yum
 
