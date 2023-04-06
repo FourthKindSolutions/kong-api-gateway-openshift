@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM alpine:3.17
 
 RUN apk add --no-cache --update busybox-suid shadow busybox-extras curl && \
 mkdir -p /opt/prometheus /opt/prometheus-config /opt/prometheus-data && \

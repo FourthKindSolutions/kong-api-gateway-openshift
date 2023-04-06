@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM alpine:3.17
 
 RUN apk add --no-cache --update redis busybox-suid shadow busybox-extras && \
 mkdir -p /opt/redis /opt/redis-config /var/run/redis && \
