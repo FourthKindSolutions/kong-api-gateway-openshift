@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM alpine:latest
 
 RUN apk --no-cache add --virtual build-dependencies wget \
     && apk --no-cache add ca-certificates \
