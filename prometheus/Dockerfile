@@ -1,4 +1,4 @@
-FROM default-route-openshift-image-registry.apps.lab.4ks.mx/poc/prometheus-1
+FROM alpine:3.10
 
 RUN apk --no-cache add --virtual build-dependencies wget \
     && apk --no-cache add ca-certificates \
