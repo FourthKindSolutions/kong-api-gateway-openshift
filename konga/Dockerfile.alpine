@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM alpine:3.17
 
 RUN apk add --no-cache --update git curl busybox-suid shadow busybox-extras nodejs npm
 
@@ -29,3 +29,4 @@ EXPOSE 1337
 WORKDIR /opt/konga
 
 CMD ["/usr/bin/run"]
+

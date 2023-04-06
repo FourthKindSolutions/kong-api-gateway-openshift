@@ -1,6 +1,6 @@
 FROM centos:7
 
-RUN yum install wget nc -y && \
+RUN yum update -y && yum install curl wget nc -y && \
 wget https://dl.grafana.com/oss/release/grafana-6.4.4.linux-amd64.tar.gz  -O /tmp/grafana.tar.gz && \
  mkdir -p /opt/grafana /opt/grafana-config /opt/grafana-data /opt/grafana-data/data /opt/grafana-data/plugins /opt/grafana-dashboard  && \
 tar zxvf /tmp/grafana.tar.gz --strip-components 1 -C /opt/grafana && \
