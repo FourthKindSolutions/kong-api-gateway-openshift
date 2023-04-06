@@ -1,5 +1,10 @@
 FROM alpine:latest
 
+LABEL maintainer "Viktor Adam <rycus86@gmail.com>"
+
+ARG ARCH=amd64
+ARG VERSION=2.7.1
+
 RUN apk --no-cache add --virtual build-dependencies wget \
     && apk --no-cache add ca-certificates \
     && mkdir -p /tmp/install /tmp/dist \
@@ -14,13 +19,11 @@ RUN apk --no-cache add --virtual build-dependencies wget \
     && ln -s /usr/share/prometheus/console_libraries /usr/share/prometheus/consoles/ /etc/prometheus/ \
     && rm -rf /tmp/install
 
-RUN adduser -H -D -u 1001 openshift && usermod -aG 0 openshift && \
-chown -R 1001 /opt && \
-chgrp -R 0 /opt  && \
-chmod -R g=u /opt
-
-USER 1001
-
-EXPOSE 9090
-
-CMD /opt/prometheus/prometheus --config.file=/opt/prometheus-config/prometheus.yml --storage.tsdb.path=/opt/prometheus-data
+EXPOSE     9090
+VOLUME     [ "/prometheus" ]
+WORKDIR    /prometheus
+ENTRYPOINT [ "/bin/prometheus" ]
+CMD        [ "--config.file=/etc/prometheus/prometheus.yml", \
+             "--storage.tsdb.path=/prometheus", \
+             "--web.console.libraries=/usr/share/prometheus/console_libraries", \
+             "--web.console.templates=/usr/share/prometheus/consoles" ]
