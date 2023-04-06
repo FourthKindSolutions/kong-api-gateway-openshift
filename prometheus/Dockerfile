@@ -1,10 +1,18 @@
-FROM alpine:3.17
+FROM alpine:latest
 
-RUN apk add --no-cache --update busybox-suid wget shadow busybox-extras curl && \
-mkdir -p /opt/prometheus /opt/prometheus-config /opt/prometheus-data && \
-wget https://github.com/prometheus/prometheus/releases/download/v2.13.1/prometheus-2.13.1.linux-amd64.tar.gz -O /tmp/prometheus.tar.gz && \
-tar zxvf /tmp/prometheus.tar.gz --strip-components 1 -C /opt/prometheus && \
-rm -rf /tmp/prometheus.tar.gz
+RUN apk --no-cache add --virtual build-dependencies wget \
+    && apk --no-cache add ca-certificates \
+    && mkdir -p /tmp/install /tmp/dist \
+    && wget -O /tmp/install/prometheus.tar.gz https://github.com/prometheus/prometheus/releases/download/v$VERSION/prometheus-$VERSION.linux-$ARCH.tar.gz \
+    && apk del build-dependencies \
+    && cd /tmp/install \
+    && tar --strip-components=1 -xzf prometheus.tar.gz \
+    && mkdir -p /etc/prometheus /usr/share/prometheus \
+    && mv prometheus promtool   /bin/ \
+    && mv prometheus.yml        /etc/prometheus/prometheus.yml \
+    && mv consoles console_libraries NOTICE LICENSE /usr/share/prometheus/ \
+    && ln -s /usr/share/prometheus/console_libraries /usr/share/prometheus/consoles/ /etc/prometheus/ \
+    && rm -rf /tmp/install
 
 RUN adduser -H -D -u 1001 openshift && usermod -aG 0 openshift && \
 chown -R 1001 /opt && \
