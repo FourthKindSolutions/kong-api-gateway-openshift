@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM default-route-openshift-image-registry.apps.lab.4ks.mx/poc/prometheus-1
 
 RUN apk --no-cache add --virtual build-dependencies wget \
     && apk --no-cache add ca-certificates \
@@ -23,4 +23,3 @@ USER 1001
 EXPOSE 9090
 
 CMD /opt/prometheus/prometheus --config.file=/opt/prometheus-config/prometheus.yml --storage.tsdb.path=/opt/prometheus-data
-
