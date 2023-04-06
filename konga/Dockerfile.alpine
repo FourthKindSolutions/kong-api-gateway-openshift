@@ -1,11 +1,13 @@
-FROM alpine:3.17
+FROM alpine:3.10
 
-RUN apk add --no-cache --update git curl busybox-suid shadow busybox-extras nodejs npm
+RUN apk add --no-cache --update git curl busybox-suid busybox-extras nodejs npm
 
 WORKDIR /opt
 
-RUN adduser -D -u 1001 konga && usermod -aG 0 konga && \
-chown -R 1001 /home/konga /opt
+RUN adduser -H -D -u 1001 -s /bin/sh -G root konga \
+    && chown -R konga:root /opt \
+    && chmod -R g=u /home/konga /opt
+
 
 USER konga
  
@@ -14,7 +16,7 @@ npm set audit false && \
 npm install sails bower gulp && \
 npm install
 
-USER root
+USER konga
 
 COPY run /usr/bin/run
 
